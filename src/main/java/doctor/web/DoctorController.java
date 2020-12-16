@@ -43,7 +43,7 @@ public class DoctorController {
 		person.setBirth(doctor.getPerson().getBirth());
 		person.setAddress(doctor.getPerson().getAddress());
 		person.setPhone(doctor.getPerson().getPhone());
-		rest.postForObject("http://localhost:8080/person",person, Person.class);
+		rest.postForObject("https://clinic-rest-api.herokuapp.com/person",person, Person.class);
 		rest.postForObject("http://localhost:8080/doctor",doctor, Doctor.class);
 		return "redirect:/bac-si";
 	}
