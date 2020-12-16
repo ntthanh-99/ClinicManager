@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thống kê bệnh</title>
+</head>
+<style>
+header { /* width 100% so với wrapper (wrapper là thẻ cha) */
+	height: 70px;
+	width: 80%;
+	background-color: #56ccf2; /* màu nền */
+	text-align: center;
+	margin: auto; /* căn giữa */
+	margin-bottom: 10px; /*khoảng cách với phần tử sau 10 px */
+}
+
+.container {
+	height: 500px;
+	width: 80%;
+	background-color: #f2f2f2;
+	margin: auto;
+	text-align: center;
+}
+
+h2 {
+	display: inline-block;
+}
+
+.search {
+	float: left;
+	width: 30%;
+}
+
+.result {
+	float: right;
+	width: 70%;
+}
+
+table, th, td {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+th, td {
+	padding: 15px;
+}
+
+th {
+	text-align: left;
+}
+</style>
+<body>
+	<div>
+		<header>
+			<h2>Thống kê bệnh</h2>
+		</header>
+
+		<div class="container">
+		<br> <br>
+			<div class="search">
+				<form class="form" th:method="POST">
+						<input type="text" name="keyword" required autocomplete="off"
+							value="YYYY-MM">
+					<br>
+					<br>
+					 <input type="submit" value="Thống kê">
+				</form>
+			</div>
+
+			<div class="result">
+				<table>
+					<tr>
+						<th>Mã</th>
+						<th>Tên bệnh</th>
+						<th>Số người mắc</th>
+						<th>Action</th>
+					</tr>
+					<tr th:each="diseaseStat : ${listDiseaseStat}">
+						<td th:text="${diseaseStat.id}"></td>
+						<td th:text="${diseaseStat.name}"></td>
+						<td th:text="${diseaseStat.amount}"></td>
+						<td><a th:href="@{/thong-ke/benh/chi-tiet(name=${diseaseStat.name})}">Detail</a>
+						
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

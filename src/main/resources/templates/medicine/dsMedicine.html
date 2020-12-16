@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DS Thuốc</title>
+</head>
+<style>
+header { /* width 100% so với wrapper (wrapper là thẻ cha) */
+	height: 70px;
+	width: 80%;
+	background-color: cyan; /* màu nền */
+	text-align: center;
+	margin: auto;
+	margin-bottom: 10px;
+}
+
+.container {
+	height: 270px;
+	width: 80%;
+	background-color: #f2f2f2;
+	margin: auto;
+	text-align: center;
+}
+
+h2 {
+	display: inline-block;
+}
+</style>
+<body>
+	<div style="">
+		<header>
+			<h2>Quản lí Thuốc</h2>
+		</header>
+		<div class="container">
+			<form method="get" action="thuoc/tim-kiem">
+				<input type="text" name="keyword" /> &nbsp; <input type="submit"
+					value="Search" />
+			</form>
+			<h3>
+				<a th:href="@{/thuoc/them-moi}">Thêm mới Thuốc</a>
+			</h3>
+			<table border="1" cellpadding="5" align="center">
+				<tr>
+					<th>ID</th>
+					<th>Tên thuốc</th>
+					<th>Tác dụng</th>
+					<th>Chỉ định</th>
+					<th>Chống chỉ định</th>
+					<th>Giá</th>
+					<th>Action</th>
+				</tr>
+
+				<tr th:each="medicine : ${listMedicine}">
+					<td th:text="${medicine.id}"></td>
+					<td th:text="${medicine.name}"></td>
+					<td th:text="${medicine.effect}"></td>
+					<td th:text="${medicine.instruction}"></td>
+					<td th:text="${medicine.contraindication}"></td>
+					<td th:text="${medicine.price}"></td>
+			
+					<td><a th:href="@{/thuoc/cap-nhat(id=${medicine.id})}">Edit</a>
+						&nbsp;&nbsp;&nbsp; <a th:href="@{/thuoc/xoa(id=${medicine.id})}">Delete</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

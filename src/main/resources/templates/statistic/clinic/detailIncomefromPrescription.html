@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chi tiết Đơn thuốc</title>
+</head>
+<style>
+header { /* width 100% so với wrapper (wrapper là thẻ cha) */
+	height: 70px;
+	width: 80%;
+	background-color: #56ccf2; /* màu nền */
+	text-align: center;
+	margin: auto; /* căn giữa */
+	margin-bottom: 10px; /*khoảng cách với phần tử sau 10 px */
+}
+
+.container {
+	height: 500px;
+	width: 80%;
+	background-color: #f2f2f2;
+	margin: auto;
+	text-align: center;
+}
+
+h2 {
+	display: inline-block;
+}
+
+.search {
+	float: left;
+	width: 30%;
+}
+
+.result {
+	float: right;
+	width: 70%;
+}
+
+table, th, td {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+th, td {
+	padding: 15px;
+}
+
+th {
+	text-align: left;
+}
+</style>
+<body>
+	<div>
+		<header>
+			<h2>Chi tiết đơn thuốc</h2>
+		</header>
+
+		<div class="container">
+		<br> <br>
+			<h3>DS đơn thuốc</h3>
+				<table align=center>
+					<tr>
+						<th>Mã</th>
+						<th>Ngày xuất</th>
+						<th>Bệnh nhân</th>
+						<th>Tên bệnh</th>
+						<th>Chi phí</th>
+						<th>Thao tác</th>
+					</tr>
+					<tr th:each="prescription : ${listPrescription}">
+						<td th:text="${prescription.id}"></td>
+						<td th:text="${prescription.date}"></td>
+						<td th:text="${prescription.test.patient.person.name}"></td>
+						<td th:text="${prescription.test.disease.name}"></td>
+						<td th:text="${prescription.total}"></td>
+						<td><a th:href="@{/thong-ke/doanh-thu/don-thuoc/chi-tiet(id=${prescription.id})}">Chi tiết</a></td>
+					</tr>
+				</table>
+				<br>
+				<label>Tổng doanh thu đơn thuốc:</label>
+                    <label th:text="*{incomePrescription}"></label> <br>
+				<a style="position: fixed;left: 650px;bottom: 50px;" href="/"><button>Close</button></a>
+		</div>
+	</div>
+</body>
+</html>

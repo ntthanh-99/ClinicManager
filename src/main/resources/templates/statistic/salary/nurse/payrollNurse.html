@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tính lương Y tá</title>
+</head>
+<style>
+header { /* width 100% so với wrapper (wrapper là thẻ cha) */
+	height: 70px;
+	width: 80%;
+	background-color: #56ccf2; /* màu nền */
+	text-align: center;
+	margin: auto; /* căn giữa */
+	margin-bottom: 10px; /*khoảng cách với phần tử sau 10 px */
+}
+
+.container {
+	height: 500px;
+	width: 80%;
+	background-color: #f2f2f2;
+	margin: auto;
+	text-align: center;
+}
+
+h2 {
+	display: inline-block;
+}
+
+.search {
+	float: left;
+	width: 30%;
+}
+
+.result {
+	float: right;
+	width: 70%;
+}
+
+table, th, td {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+th, td {
+	padding: 15px;
+}
+
+th {
+	text-align: left;
+}
+</style>
+<body>
+	<div>
+		<header>
+			<h2>Tính lương Bác Sĩ</h2>
+		</header>
+
+		<div class="container">
+		<br> <br>
+			<div class="search">
+				<form class="form" th:method="POST">
+						<input type="text" name="keyword" required autocomplete="on"
+							value="YYYY-MM">
+					<br>
+					<br>
+					 <input type="submit" value="Tính">
+				</form>
+				<br>
+				<br>
+				<h3>Y Tá:</h3>
+                    <label>ID: </label>
+                    <label th:text="*{nurse.id}" ></label> <br>
+                    <label>Tên Y Tá:</label>
+                    <label th:text="*{nurse.person.name}"></label> <br>
+                    <label>Trình độ:</label>
+                    <label th:text="*{nurse.level}"></label> <br>
+                <h3>Lương</h3>
+                	<label>Tháng: </label>
+                    <label th:text="*{month}" ></label> <br>
+                    <label>Lương cứng: </label>
+                    <label th:text="*{nurse.salary}" ></label> <br>
+                    <label>Nhận thêm: </label>
+                    <label th:text="*{addSalary}" ></label> <br>
+                    <label>Tổng Lương: </label>
+                    <label th:text="*{total}" ></label> <br>
+			</div>
+
+			<div class="result">
+			<h3>DS chăm sóc</h3>
+				<table>
+					<tr>
+						<th>Mã</th>
+						<th>Ngày nhập viện</th>
+						<th>Ngày ra viện</th>
+						<th>Bác sĩ khám</th>
+						<th>Y tá chăm sóc</th>
+						<th>Bệnh nhân</th>
+						<th>Tên bệnh</th>
+					</tr>
+					<tr th:each="support : ${listSupport}">
+						<td th:text="${support.id}"></td>
+						<td th:text="${support.test.datein}"></td>
+						<td th:text="${support.test.dateout}"></td>
+						<td th:text="${support.test.doctor.person.name}"></td>
+						<td th:text="${support.nurse.person.name}"></td>
+						<td th:text="${support.test.patient.person.name}"></td>
+						<td th:text="${support.test.disease.name}"></td>
+					</tr>
+				</table>
+				<a style="position: fixed;left: 650px;bottom: 50px;" href="/"><button>Close</button></a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

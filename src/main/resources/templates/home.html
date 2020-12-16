@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Trang chủ</title>
+</head>
+<style>
+header {
+	/* width 100% so với wrapper (wrapper là thẻ cha) */
+	height: 70px;
+	width: 80%;
+	background-color: #56ccf2; /* màu nền */
+	text-align: center;
+	margin: auto; /* căn giữa */
+	margin-bottom: 10px; /*khoảng cách với phần tử sau 10 px */
+}
+
+.container {
+	height: 80%;
+	width: 80%;
+	background-color: #f2f2f2;
+	margin: auto;
+	text-align: center;
+}
+
+.login {
+	height: 40px;
+	width: 90%;
+	text-align: right;
+}
+
+.footer {
+	height: 10%;
+	text-align: center;
+	font-size: 14px;
+}
+
+h2 {
+	display: inline-block;
+}
+
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #56ccf2;
+}
+
+li {
+	float: left;
+}
+
+li a, .dropbtn {
+	display: inline-block;
+	color: black;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+li a:hover, .dropdown:hover .dropbtn {
+	background-color: #56CCF2;
+}
+
+li.dropdown {
+	display: inline-block;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #56ccf2;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+}
+
+.dropdown-content a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+	text-align: left;
+}
+
+.dropdown-content a:hover {
+	background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+</style>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href='<c:url value="static/css/select-supplier.css"/>'>
+<body>
+	<div style="">
+		<header>
+			<h2>Hệ thống Quản lí phòng khám</h2>
+		</header>
+
+		<div class="container">
+			<ul>
+				<li><a href="#">Trang chủ</a></li>
+				<li class="dropdown"><a href="javascript:void(0)"
+					class="dropbtn">Quản lí</a>
+					<div class="dropdown-content">
+						<a th:href="@{/bac-si}">Quản lí bác sĩ</a> <a th:href="@{/y-ta}">Quản
+							lí y tá</a> <a th:href="@{/benh-nhan}">Quản lí bệnh nhân</a> <a
+							th:href="@{/thuoc}">Quản lí thuốc</a>
+
+					</div></li>
+
+				<li class="dropdown"><a href="javascript:void(0)"
+					class="dropbtn">Tính lương</a>
+					<div class="dropdown-content">
+						<a th:href="@{/tinh-luong/bac-si}">Bác sĩ</a> <a
+							th:href="@{/tinh-luong/y-ta}">Y tá</a>
+
+					</div></li>
+				<li class="dropdown"><a href="javascript:void(0)"
+					class="dropbtn">Xem thống kê</a>
+					<div class="dropdown-content">
+						<a th:href="@{/thong-ke/doanh-thu}">Thống kê doanh thu</a> <a
+							th:href="@{/thong-ke/benh-nhan}">Thống kê bệnh nhân</a> <a
+							th:href="@{/thong-ke/benh}">Thống kê bệnh</a>
+					</div></li>
+				<li><a th:href="@{/lien-he}">Liên hệ</a></li>
+
+			</ul>
+			<!-- First Grid -->
+			<div class="w3-row-padding w3-padding-64 w3-container">
+				<div class="w3-content">
+					<div class="w3-twothird">
+						<h1>Dịch vụ trọn gói</h1>
+						<p class="w3-text-grey">Tại phòng khám chất lượng dịch vụ được
+							đặt lên hàng đầu. Tất cả các dịch vụ đều được phục vụ theo yêu
+							cầu của khách hàng. Chúng tôi luôn lấy cảm nhận của khách hàng để
+							làm động lực nâng cao chất lượng chất lượng dịch vụ</p>
+					</div>
+					<img th:src="@{/images/pic1.jpg}" th:style="'width: 320px; height: 250px'"/>
+				</div>
+			</div>
+
+			<!-- Second Grid -->
+			<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+				<div class="w3-content">
+					<div class="w3-third w3-center">
+						<img th:src="@{/images/pic2.jpg}" th:style="'width: 320px; height: 250px'"/>
+					</div>
+					<div class="w3-twothird">
+						<h1>Đội ngũ Bác sĩ chuyên nghiệp</h1>
+						<p class="w3-text-grey">Tại phòng khám chất lượng dịch vụ được
+							đặt lên hàng đầu. Tất cả các dịch vụ đều được phục vụ theo yêu
+							cầu của khách hàng. Chúng tôi luôn lấy cảm nhận của khách hàng để
+							làm động lực nâng cao chất lượng chất lượng dịch vụ</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="w3-row-padding w3-padding-64 w3-container">
+				<div class="w3-content">
+					<div class="w3-twothird">
+						<h1>Chi phí phải chăng</h1>
+						<p class="w3-text-grey">Tại Phòng khám chất lượng dịch vụ được
+							đặt lên hàng đầu. Tất cả các dịch vụ đều được phục vụ theo yêu
+							cầu của khách hàng. Chúng tôi luôn lấy cảm nhận của khách hàng để
+							làm động lực nâng cao chất lượng chất lượng dịch vụ</p>
+					</div>
+					<img th:src="@{/images/pic3.png}" th:style="'width: 320px; height: 250px'"/>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+</body>
+</html>

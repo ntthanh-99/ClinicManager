@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kết quả</title>
+</head>
+<style>
+header { /* width 100% so với wrapper (wrapper là thẻ cha) */
+	height: 70px;
+	width: 80%;
+	background-color: cyan; /* màu nền */
+	text-align: center;
+	margin: auto;
+	margin-bottom: 10px;
+}
+
+.container {
+	height: 270px;
+	width: 80%;
+	background-color: #f2f2f2;
+	margin: auto;
+	text-align: center;
+}
+
+h2 {
+	display: inline-block;
+}
+</style>
+<body>
+	<header>
+		<h2>Quản lí Y Tá</h2>
+	</header>
+	<div class="container">
+		
+			<h2 style="text-align: center;">Kết quả:</h2>
+		
+		<table border="1" cellpadding="5" align="center">
+			<tr>
+					<th>ID</th>
+					<th>CMT</th>
+					<th>Họ Tên</th>
+					<th>Ngày sinh</th>
+					<th>Địa chỉ</th>
+					<th>SDT</th>
+					<th>Trình độ</th>
+					<th>Thâm niên</th>
+					<th>Lương</th>
+					<th>Action</th>
+				</tr>
+
+				<tr th:each="nurse : ${listNurse}">
+					<td th:text="${nurse.id}"></td>
+					<td th:text="${nurse.person.cmt}"></td>
+					<td th:text="${nurse.person.name}"></td>
+					<td th:text="${nurse.person.birth}"></td>
+					<td th:text="${nurse.person.address}"></td>
+					<td th:text="${nurse.person.phone}"></td>
+				
+					<td th:text="${nurse.level}"></td>
+					<td th:text="${nurse.exp}"></td>
+					<td th:text="${nurse.salary}"></td>
+					<td><a th:href="@{/y-ta/cap-nhat(id=${nurse.id})}">Edit</a>
+						&nbsp;&nbsp;&nbsp; <a th:href="@{/y-ta/xoa(id=${nurse.id})}">Delete</a>
+					</td>
+				</tr>
+		</table>
+	</div>
+
+</body>
+</html>
