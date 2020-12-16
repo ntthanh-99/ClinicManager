@@ -22,7 +22,7 @@ public class DoctorController {
 	@GetMapping("/bac-si")
 	public ModelAndView addModeltoView() {
 		List<Doctor> listDoctors =Arrays.asList(rest.getForObject("https://clinic-rest-api.herokuapp.com/doctor",Doctor[].class));
-	    ModelAndView modelAndView = new ModelAndView("/doctor/dsDoctor");
+	    ModelAndView modelAndView = new ModelAndView("dsDoctor");
 	    modelAndView.addObject("listDoctor", listDoctors);
 	    return modelAndView;
 	}
