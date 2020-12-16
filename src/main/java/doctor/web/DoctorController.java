@@ -33,7 +33,7 @@ public class DoctorController {
 		doctor.setPerson(person);
 		//model.addAttribute("person",person);
 		model.addAttribute("doctor", doctor);
-		return "/doctor/addDoctor";
+		return "addDoctor";
 	}
 	@PostMapping("bac-si/luu")
 	public String save(Doctor doctor) {
@@ -44,7 +44,7 @@ public class DoctorController {
 		person.setAddress(doctor.getPerson().getAddress());
 		person.setPhone(doctor.getPerson().getPhone());
 		rest.postForObject("https://clinic-rest-api.herokuapp.com/person",person, Person.class);
-		rest.postForObject("http://localhost:8080/doctor",doctor, Doctor.class);
+		rest.postForObject("https://clinic-rest-api.herokuapp.com/doctor",doctor, Doctor.class);
 		return "redirect:/bac-si";
 	}
 	@PutMapping("bac-si/luu")
@@ -55,30 +55,30 @@ public class DoctorController {
 		person.setBirth(doctor.getPerson().getBirth());
 		person.setAddress(doctor.getPerson().getAddress());
 		person.setPhone(doctor.getPerson().getPhone());
-		rest.put("http://localhost:8080/person/{id}",person, person.getCmt());
-		rest.put("http://localhost:8080/doctor/{id}",doctor, doctor.getId());
+		rest.put("https://clinic-rest-api.herokuapp.com/person/{id}",person, person.getCmt());
+		rest.put("https://clinic-rest-api.herokuapp.com/doctor/{id}",doctor, doctor.getId());
 		return "redirect:/bac-si";
 	}
 	@RequestMapping("/bac-si/cap-nhat")
 	public String edit(@RequestParam("id") Integer id,Model model) {
-		Doctor doctorEdit=rest.getForObject("http://localhost:8080/doctor/{id}",Doctor.class,id);
+		Doctor doctorEdit=rest.getForObject("https://clinic-rest-api.herokuapp.com/doctor/{id}",Doctor.class,id);
 		model.addAttribute("doctor",doctorEdit);
-		return "/doctor/editDoctor";
+		return "editDoctor";
 	}
 	
 	@GetMapping("bac-si/xoa")
 	public String delete(@RequestParam String id) {
-		Doctor doctorDelete=rest.getForObject("http://localhost:8080/doctor/{id}",Doctor.class,id);
+		Doctor doctorDelete=rest.getForObject("https://clinic-rest-api.herokuapp.com/doctor/{id}",Doctor.class,id);
 		String cmt= doctorDelete.getPerson().getCmt();
-		rest.delete("http://localhost:8080/doctor/{id}",id);
-		rest.delete("http://localhost:8080/person/{id}",cmt);
+		rest.delete("https://clinic-rest-api.herokuapp.com/doctor/{id}",id);
+		rest.delete("https://clinic-rest-api.herokuapp.com/person/{id}",cmt);
 		return "redirect:/bac-si";
 	}
 	@GetMapping("bac-si/tim-kiem")
 	public ModelAndView search(@RequestParam String keyword,Model model) {
-		List<Doctor> listDoctor = Arrays.asList(rest.getForObject("http://localhost:8080/doctor/search/{keyword}", Doctor[].class,keyword));
+		List<Doctor> listDoctor = Arrays.asList(rest.getForObject("https://clinic-rest-api.herokuapp.com/doctor/search/{keyword}", Doctor[].class,keyword));
 		
-	    ModelAndView modelAndView = new ModelAndView("/doctor/searchDoctorResult");
+	    ModelAndView modelAndView = new ModelAndView("searchDoctorResult");
 	    modelAndView.addObject("listDoctor", listDoctor);
 	    return modelAndView;
 	}

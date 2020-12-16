@@ -21,8 +21,8 @@ public class PatientController {
 	private RestTemplate rest = new RestTemplate();
 	@GetMapping("/benh-nhan")
 	public ModelAndView addModeltoView() {
-		List<Patient> listPatients =Arrays.asList(rest.getForObject("http://localhost:8080/patient",Patient[].class));
-	    ModelAndView modelAndView = new ModelAndView("/patient/dsPatient");
+		List<Patient> listPatients =Arrays.asList(rest.getForObject("https://clinic-rest-api.herokuapp.com/patient",Patient[].class));
+	    ModelAndView modelAndView = new ModelAndView("dsPatient");
 	    modelAndView.addObject("listPatient", listPatients);
 	    return modelAndView;
 	}
@@ -33,7 +33,7 @@ public class PatientController {
 		patient.setPerson(person);
 		//model.addAttribute("person",person);
 		model.addAttribute("patient", patient);
-		return "/patient/addPatient";
+		return "addPatient";
 	}
 	@PostMapping("benh-nhan/luu")
 	public String save(Patient patient) {
@@ -43,8 +43,8 @@ public class PatientController {
 		person.setBirth(patient.getPerson().getBirth());
 		person.setAddress(patient.getPerson().getAddress());
 		person.setPhone(patient.getPerson().getPhone());
-		rest.postForObject("http://localhost:8080/person",person, Person.class);
-		rest.postForObject("http://localhost:8080/patient",patient, Patient.class);
+		rest.postForObject("https://clinic-rest-api.herokuapp.com/person",person, Person.class);
+		rest.postForObject("https://clinic-rest-api.herokuapp.com/patient",patient, Patient.class);
 		return "redirect:/benh-nhan";
 	}
 	@PutMapping("benh-nhan/luu")
@@ -55,30 +55,30 @@ public class PatientController {
 		person.setBirth(patient.getPerson().getBirth());
 		person.setAddress(patient.getPerson().getAddress());
 		person.setPhone(patient.getPerson().getPhone());
-		rest.put("http://localhost:8080/person/{id}",person, person.getCmt());
-		rest.put("http://localhost:8080/patient/{id}",patient, patient.getId());
+		rest.put("https://clinic-rest-api.herokuapp.com/person/{id}",person, person.getCmt());
+		rest.put("https://clinic-rest-api.herokuapp.com/patient/{id}",patient, patient.getId());
 		return "redirect:/benh-nhan";
 	}
 	@RequestMapping("/benh-nhan/cap-nhat")
 	public String edit(@RequestParam("id") Integer id,Model model) {
-		Patient patientEdit=rest.getForObject("http://localhost:8080/patient/{id}",Patient.class,id);
+		Patient patientEdit=rest.getForObject("https://clinic-rest-api.herokuapp.com/patient/{id}",Patient.class,id);
 		model.addAttribute("patient",patientEdit);
-		return "/patient/editPatient";
+		return "editPatient";
 	}
 	
 	@GetMapping("benh-nhan/xoa")
 	public String delete(@RequestParam String id) {
-		Patient patientDelete=rest.getForObject("http://localhost:8080/patient/{id}",Patient.class,id);
+		Patient patientDelete=rest.getForObject("https://clinic-rest-api.herokuapp.com/patient/{id}",Patient.class,id);
 		String cmt= patientDelete.getPerson().getCmt();
-		rest.delete("http://localhost:8080/patient/{id}",id);
-		rest.delete("http://localhost:8080/person/{id}",cmt);
+		rest.delete("https://clinic-rest-api.herokuapp.com/patient/{id}",id);
+		rest.delete("https://clinic-rest-api.herokuapp.com/person/{id}",cmt);
 		return "redirect:/benh-nhan";
 	}
 	@GetMapping("benh-nhan/tim-kiem")
 	public ModelAndView search(@RequestParam String keyword,Model model) {
-		List<Patient> listPatient = Arrays.asList(rest.getForObject("http://localhost:8080/patient/search/{keyword}", Patient[].class,keyword));
+		List<Patient> listPatient = Arrays.asList(rest.getForObject("https://clinic-rest-api.herokuapp.com/patient/search/{keyword}", Patient[].class,keyword));
 		
-	    ModelAndView modelAndView = new ModelAndView("/patient/searchPatientResult");
+	    ModelAndView modelAndView = new ModelAndView("searchPatientResult");
 	    modelAndView.addObject("listPatient", listPatient);
 	    return modelAndView;
 	}

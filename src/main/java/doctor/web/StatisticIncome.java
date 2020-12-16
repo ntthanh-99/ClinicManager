@@ -26,13 +26,13 @@ public class StatisticIncome {
 	int incomePrescription=0;
 	@GetMapping("/thong-ke/doanh-thu")
 	public String show(Model model) {
-		return "/statistic/clinic/statisticClinic";
+		return "statisticClinic";
 	}
 	@PostMapping("/thong-ke/doanh-thu")
 	public ModelAndView showStatistic(@RequestParam String keyword,Model model) {
-		listTest = Arrays.asList(rest.getForObject("http://localhost:8080/test/statistic/income/{keyword}", Test[].class,keyword));
-		listPrescription = Arrays.asList(rest.getForObject("http://localhost:8080/prescription/statistic/income/{keyword}", Prescription[].class,keyword));
-	    ModelAndView modelAndView = new ModelAndView("/statistic/clinic/statisticClinic");
+		listTest = Arrays.asList(rest.getForObject("https://clinic-rest-api.herokuapp.com/test/statistic/income/{keyword}", Test[].class,keyword));
+		listPrescription = Arrays.asList(rest.getForObject("https://clinic-rest-api.herokuapp.com/prescription/statistic/income/{keyword}", Prescription[].class,keyword));
+	    ModelAndView modelAndView = new ModelAndView("statisticClinic");
 	    int tempTest=0;
 	    int tempPrescription=0;
 	    for(int i=0;i<listTest.size();i++) {
@@ -54,24 +54,24 @@ public class StatisticIncome {
 	public String showTest(Model model) {
 		model.addAttribute("listTest", listTest);
 		model.addAttribute("incomeTest", incomeTest);
-		return "/statistic/clinic/detailIncomefromTest";
+		return "detailIncomefromTest";
 	}
 	@GetMapping("/thong-ke/doanh-thu/don-thuoc")
 	public String showPrescription(Model model) {
 		model.addAttribute("listPrescription", listPrescription);
 		model.addAttribute("incomePrescription", incomePrescription);
-		return "/statistic/clinic/detailIncomefromPrescription";
+		return "detailIncomefromPrescription";
 	}
 	@GetMapping("/thong-ke/doanh-thu/don-thuoc/chi-tiet")
 	public String showMedicineUsed(@RequestParam String id,Model model) {
-		List<MedicineUsed> listMedicineUsed = Arrays.asList(rest.getForObject("http://localhost:8080/medicineused/statistic/income/{id}", MedicineUsed[].class,id));
+		List<MedicineUsed> listMedicineUsed = Arrays.asList(rest.getForObject("https://clinic-rest-api.herokuapp.com/medicineused/statistic/income/{id}", MedicineUsed[].class,id));
 		model.addAttribute("listMedicineUsed", listMedicineUsed);
 		int total=0;
 		for(int i=0;i<listMedicineUsed.size();i++) {
 			total+=listMedicineUsed.get(i).getAmount()*listMedicineUsed.get(i).getMedicine().getPrice();
 		}
 		model.addAttribute("total", total);
-		return "/statistic/clinic/detailMedicine";
+		return "detailMedicine";
 	}
 	
 }

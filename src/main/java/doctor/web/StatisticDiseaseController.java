@@ -29,13 +29,13 @@ public class StatisticDiseaseController {
 	ArrayList<DiseaseStat> listDiseaseStat=null;
 	@GetMapping("/thong-ke/benh")
 	public String show(Model model) {
-		return "/statistic/disease/statisticDisease";
+		return "statisticDisease";
 	}
 	@PostMapping("/thong-ke/benh")
 	public ModelAndView statistic(@RequestParam String keyword,Model model) {
 		this.month=keyword;
 		// lấy ds khám bệnh trong tháng
-		List<Test> listTesttmp = Arrays.asList(rest.getForObject("http://localhost:8080/test/statistic/disease/{keyword}", Test[].class,keyword));
+		List<Test> listTesttmp = Arrays.asList(rest.getForObject("https://clinic-rest-api.herokuapp.com/test/statistic/disease/{keyword}", Test[].class,keyword));
 		// đếm số lần mặc bệnh
 		//List k xóa đc nên convert sang ArrayList 
 		listTest=new ArrayList<>(listTesttmp);
@@ -58,13 +58,13 @@ public class StatisticDiseaseController {
 			listDiseaseStat.add(diseaseStat);	
 		}
 		//
-	    ModelAndView modelAndView = new ModelAndView("/statistic/disease/statisticDisease");
+	    ModelAndView modelAndView = new ModelAndView("statisticDisease");
 	    modelAndView.addObject("listDiseaseStat", listDiseaseStat);
 	    return modelAndView;
 	}
 	@GetMapping("/thong-ke/benh/chi-tiet")
 	public ModelAndView detail(@RequestParam String name,Model model) {
-		ModelAndView modelAndView = new ModelAndView("/statistic/disease/detailDisease");
+		ModelAndView modelAndView = new ModelAndView("detailDisease");
 		// lấy lại thông tin bệnh
 		for(int i=0;i<listDiseaseStat.size();i++) {
 			if(listDiseaseStat.get(i).getName().equals(name)) {

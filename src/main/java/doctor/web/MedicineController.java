@@ -21,8 +21,8 @@ public class MedicineController {
 	private RestTemplate rest = new RestTemplate();
 	@GetMapping("/thuoc")
 	public ModelAndView addModeltoView() {
-		List<Medicine> listMedicine =Arrays.asList(rest.getForObject("http://localhost:8080/medicine",Medicine[].class));
-	    ModelAndView modelAndView = new ModelAndView("/medicine/dsMedicine");
+		List<Medicine> listMedicine =Arrays.asList(rest.getForObject("https://clinic-rest-api.herokuapp.com/medicine",Medicine[].class));
+	    ModelAndView modelAndView = new ModelAndView("dsMedicine");
 	    modelAndView.addObject("listMedicine", listMedicine);
 	    return modelAndView;
 	}
@@ -30,35 +30,35 @@ public class MedicineController {
 	public String addNew(Model model) {
 		Medicine medicine=new Medicine();
 		model.addAttribute("medicine", medicine);
-		return "/medicine/addMedicine";
+		return "addMedicine";
 	}
 	@PostMapping("thuoc/luu")
 	public String save(Medicine medicine) {
-		rest.postForObject("http://localhost:8080/medicine",medicine, Medicine.class);
+		rest.postForObject("https://clinic-rest-api.herokuapp.com/medicine",medicine, Medicine.class);
 		return "redirect:/thuoc";
 	}
 	@PutMapping("thuoc/luu")
 	public String update(Medicine medicine) {
-		rest.put("http://localhost:8080/medicine/{id}",medicine, medicine.getId());
+		rest.put("https://clinic-rest-api.herokuapp.com/medicine/{id}",medicine, medicine.getId());
 		return "redirect:/thuoc";
 	}
 	@RequestMapping("/thuoc/cap-nhat")
 	public String edit(@RequestParam("id") Integer id,Model model) {
-		Medicine medicineEdit=rest.getForObject("http://localhost:8080/medicine/{id}",Medicine.class,id);
+		Medicine medicineEdit=rest.getForObject("https://clinic-rest-api.herokuapp.com/medicine/{id}",Medicine.class,id);
 		model.addAttribute("medicine",medicineEdit);
-		return "/medicine/editMedicine";
+		return "editMedicine";
 	}
 	
 	@GetMapping("thuoc/xoa")
 	public String delete(@RequestParam String id) {
-		rest.delete("http://localhost:8080/medicine/{id}",id);
+		rest.delete("https://clinic-rest-api.herokuapp.com/medicine/{id}",id);
 		return "redirect:/thuoc";
 	}
 	@GetMapping("thuoc/tim-kiem")
 	public ModelAndView search(@RequestParam String keyword,Model model) {
-		List<Medicine> listMedicine = Arrays.asList(rest.getForObject("http://localhost:8080/medicine/search/{keyword}", Medicine[].class,keyword));
+		List<Medicine> listMedicine = Arrays.asList(rest.getForObject("https://clinic-rest-api.herokuapp.com/medicine/search/{keyword}", Medicine[].class,keyword));
 		
-	    ModelAndView modelAndView = new ModelAndView("/medicine/searchMedicineResult");
+	    ModelAndView modelAndView = new ModelAndView("searchMedicineResult");
 	    modelAndView.addObject("listMedicine", listMedicine);
 	    return modelAndView;
 	}

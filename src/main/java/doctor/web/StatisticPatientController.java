@@ -23,24 +23,24 @@ public class StatisticPatientController {
 	private Patient patient;
 	@GetMapping("/thong-ke/benh-nhan")
 	public String show(Model model) {
-		return "/statistic/patient/selectPatient";
+		return "selectPatient";
 	}
 	@PostMapping("/thong-ke/benh-nhan")
 	public ModelAndView showPatient(@RequestParam String keyword,Model model) {
-		List<Patient> listPatient = Arrays.asList(rest.getForObject("http://localhost:8080/patient/search/{keyword}", Patient[].class,keyword));
-	    ModelAndView modelAndView = new ModelAndView("/statistic/patient/selectPatient");
+		List<Patient> listPatient = Arrays.asList(rest.getForObject("https://clinic-rest-api.herokuapp.com/patient/search/{keyword}", Patient[].class,keyword));
+	    ModelAndView modelAndView = new ModelAndView("selectPatient");
 	    modelAndView.addObject("listPatient", listPatient);
 	    return modelAndView;
 	}
 	@GetMapping("/thong-ke/benh-nhan/ket-qua")
 	public String payrollDoctor(@RequestParam String id, Model model) {
-		patient=rest.getForObject("http://localhost:8080/patient/{id}",Patient.class,id);
+		patient=rest.getForObject("https://clinic-rest-api.herokuapp.com/patient/{id}",Patient.class,id);
 		model.addAttribute("patient", patient);
-		List<Test> listTest = Arrays.asList(rest.getForObject("http://localhost:8080/test/statistic/patient/{id}", Test[].class,id));
+		List<Test> listTest = Arrays.asList(rest.getForObject("https://clinic-rest-api.herokuapp.com/test/statistic/patient/{id}", Test[].class,id));
 		// Đảo ngược mảng
 		Collections.reverse(listTest);
 		
 		model.addAttribute("listTest", listTest);
-		return "/statistic/patient/statisticPatient";
+		return "statisticPatient";
 	}
 }

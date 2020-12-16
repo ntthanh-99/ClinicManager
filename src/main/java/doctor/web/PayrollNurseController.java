@@ -22,29 +22,29 @@ public class PayrollNurseController {
 	private Nurse nurse=null;
 	@GetMapping("/tinh-luong/y-ta")
 	public String showSelectNurse(Model model) {
-		return "/statistic/salary/nurse/selectNurse";
+		return "selectNurse";
 	}
 	@PostMapping("/tinh-luong/y-ta")
 	public ModelAndView showNurse(@RequestParam String keyword,Model model) {
-		List<Nurse> listNurse = Arrays.asList(rest.getForObject("http://localhost:8080/nurse/search/{keyword}", Nurse[].class,keyword));
-	    ModelAndView modelAndView = new ModelAndView("/statistic/salary/nurse/selectNurse");
+		List<Nurse> listNurse = Arrays.asList(rest.getForObject("https://clinic-rest-api.herokuapp.com/nurse/search/{keyword}", Nurse[].class,keyword));
+	    ModelAndView modelAndView = new ModelAndView("selectNurse");
 	    modelAndView.addObject("listNurse", listNurse);
 	    return modelAndView;
 	}
 	@GetMapping("/tinh-luong/y-ta/ket-qua")
 	public String payrollDoctor(@RequestParam String id, Model model) {
-		nurse=rest.getForObject("http://localhost:8080/nurse/{id}",Nurse.class,id);
+		nurse=rest.getForObject("https://clinic-rest-api.herokuapp.com/nurse/{id}",Nurse.class,id);
 		model.addAttribute("nurse", nurse);
-		return "/statistic/salary/nurse/payrollNurse";
+		return "payrollNurse";
 	}
 	@PostMapping("/tinh-luong/y-ta/ket-qua")
 	public ModelAndView showTest(@RequestParam String keyword,Model model) {
-	    ModelAndView modelAndView = new ModelAndView("/statistic/salary/nurse/payrollNurse");
+	    ModelAndView modelAndView = new ModelAndView("payrollNurse");
 	    //setAtribute Nurse
 	    modelAndView.addObject("nurse", nurse);
 	    modelAndView.addObject("month", keyword);
 	    //set listSupport
-	    List<Support> listSupport=Arrays.asList(rest.getForObject("http://localhost:8080/support/statistic/nurse/{keyword}/{id}", Support[].class,keyword,nurse.getId()));
+	    List<Support> listSupport=Arrays.asList(rest.getForObject("https://clinic-rest-api.herokuapp.com/support/statistic/nurse/{keyword}/{id}", Support[].class,keyword,nurse.getId()));
 	    modelAndView.addObject("listSupport", listSupport);
 	    int count=0;
 	    for(int i=0;i<listSupport.size();i++) {
